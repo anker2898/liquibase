@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    database-type: mysql
+    url: ${db.url:jdbc:mysql://192.168.27.132:31306/TENANT1}
+    driverClassName: com.mysql.jdbc.Driver
+    username: ${db.username:root}
+    password: ${db.password:root}
+    minimum-idle: ${db.minimum-idle:1}
+    maximum-pool-size: ${db.maximum-pool-size:1}
+    default-schema: TENANT1
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.default_schema: TENANT1
+  liquibase:
+    change-log: classpath:db.changelog-master.xml
+    contexts: prod, develop
