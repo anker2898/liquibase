@@ -1,3 +1,62 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+    <changeSet author="anker" id="1.0.0">
+        <createTable tableName="ARK_TYPE_PLATE" tablespace="COMMONS">
+            <column autoIncrement="true" generationType="BY DEFAULT" name="TPLT_ID" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ARK_TYPE_PLATE"/>
+            </column>
+            <column name="VERSION" type="INTEGER"/>
+            <column name="TPLT_TYPE" type="VARCHAR(255 BYTE)"/>
+        </createTable>
+        <createTable tableName="ARK_PLATE" tablespace="COMMONS">
+            <column autoIncrement="true" generationType="BY DEFAULT" name="PLT_ID" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ARK_PLATE"/>
+            </column>
+            <column name="VERSION" type="INTEGER"/>
+            <column name="PLT_NAME" type="VARCHAR(255 BYTE)"/>
+            <column name="PLT_PRICE" type="FLOAT"/>
+            <column name="TPLT_ID" type="INTEGER"/>
+            <column name="PLT_STOCK" type="INTEGER"/>
+        </createTable>
+        <createTable tableName="ARK_INGREDIENT" tablespace="COMMONS">
+            <column autoIncrement="true" generationType="BY DEFAULT" name="INGR_ID" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ARK_INGREDIENT"/>
+            </column>
+            <column name="VERSION" type="INTEGER"/>
+            <column name="INGR_PRODUCT" type="VARCHAR(255 BYTE)"/>
+            <column name="PLT_ID" type="INTEGER"/>
+        </createTable>
+        <createTable tableName="ARK_ITEM_SALE" tablespace="COMMONS">
+            <column autoIncrement="true" generationType="BY DEFAULT" name="ITSL_ID" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ARK_ITEM_SALE"/>
+            </column>
+            <column name="VERSION" type="INTEGER"/>
+            <column name="ITDL_COUNT" type="INTEGER"/>
+            <column name="PLT_ID" type="INTEGER"/>
+            <column name="TCKT_ID" type="INTEGER"/>
+            <column name="ITDL_OBS" type="VARCHAR(255 BYTE)"/>
+        </createTable>
+        <createTable tableName="ARK_TICKET" tablespace="COMMONS">
+            <column autoIncrement="true" generationType="BY DEFAULT" name="TCKT_ID" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ARK_TICKET"/>
+            </column>
+            <column name="VERSION" type="INTEGER"/>
+            <column name="TCKT_DATE" type="DATE"/>
+            <column name="TCKT_AMOUNT" type="FLOAT"/>
+            <column name="TCKT_CLIENT" type="VARCHAR(255 BYTE)"/>
+            <column name="TCKT_STATE" type="VARCHAR(1 BYTE)"/>
+        </createTable>
+        <createTable tableName="ARK_EGRESS" tablespace="COMMONS">
+            <column autoIncrement="true" generationType="BY DEFAULT" name="EGS_ID" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ARK_EGRESS"/>
+            </column>
+            <column name="VERSION" type="INTEGER"/>
+            <column name="EGS_DATE" type="DATE"/>
+            <column name="EGS_AMOUNT" type="FLOAT"/>
+        </createTable>
 
+        <addForeignKeyConstraint baseColumnNames="TPLT_ID" baseTableName="ARK_PLATE" constraintName="FK_ARK_PLATE_ARK_TYPE_PLATE" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="TPLT_ID" referencedTableName="ARK_TYPE_PLATE" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="PLT_ID" baseTableName="ARK_INGREDIENT" constraintName="FK_ARK_INGREDIENT_ARK_PLATE" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="PLT_ID" referencedTableName="ARK_PLATE" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="PLT_ID" baseTableName="ARK_ITEM_SALE" constraintName="FK_ARK_PLATE_ARK_ITEM_SALE" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="PLT_ID" referencedTableName="ARK_PLATE" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="TCKT_ID" baseTableName="ARK_ITEM_SALE" constraintName="FK_ARK_ITEM_SALE_ARK_TICKET" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="TCKT_ID" referencedTableName="ARK_TICKET" validate="true"/>
+    </changeSet>
 </databaseChangeLog>
