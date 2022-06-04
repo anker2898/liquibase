@@ -59,4 +59,9 @@
         <addForeignKeyConstraint baseColumnNames="PLT_ID" baseTableName="ARK_ITEM_SALE" constraintName="FK_ARK_PLATE_ARK_ITEM_SALE" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="PLT_ID" referencedTableName="ARK_PLATE" validate="true"/>
         <addForeignKeyConstraint baseColumnNames="TCKT_ID" baseTableName="ARK_ITEM_SALE" constraintName="FK_ARK_ITEM_SALE_ARK_TICKET" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="TCKT_ID" referencedTableName="ARK_TICKET" validate="true"/>
     </changeSet>
+    <changeSet author="anker" id="1.0.1">
+        <addColumn tableName="ARK_EGRESS" tablespace="COMMONS">
+            <column name="EGS_DESCR" type="VARCHAR(200)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
